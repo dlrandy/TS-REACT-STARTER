@@ -103,9 +103,6 @@
     "*.{css,scss}": [
       "yarn run lint:css",
       "git add"
-    ],
-    "ignore": [
-      "**/dist/*"
     ]
   },
   "sideEffects": false
