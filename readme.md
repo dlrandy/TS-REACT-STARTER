@@ -10,6 +10,9 @@ yarn start C:\Users\EDZ\Desktop\dev\src\jyzt_prj\index.tsx C:\Users\EDZ\Desktop\
 1. Windows命令行应该使用cmd
 
 
+GH_TOKEN=168b94dff3a69ca2c1313e14916e69fbdc7809a3
+NPM_TOKEN=4ba7233d-ffb5-420d-8ca9-1e4bc673744f
+
 
 
 https://www.pluralsight.com/guides/react-router-typescript
