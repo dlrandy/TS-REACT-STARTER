@@ -3,7 +3,7 @@
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const dotenv = require('dotenv');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ImageminPlugin = require('imagemin-webpack');
+// const ImageminPlugin = require('imagemin-webpack'); // 手动压缩文件， 减少打包时间
 // lossless
 // const imageminJpegtran = require('imagemin-jpegtran');
 // const imageminOptipng = require('imagemin-optipng');
@@ -171,29 +171,29 @@ module.exports = {
     usedExports: true,
     sideEffects: true,
     minimizer: [
-      new ImageminPlugin({
-        bail: false,
-        cache: true,
-        imageminOptions: {
-          plugins: [
-            ['gifsicle', { interlaced: true }],
-            ['jpegtran', { progressive: true }],
-            ['optipng', { optimizationLevel: 5 }],
-            [
-              'svgo',
-              {
-                plugins: [
-                  {
-                    removeViewBox: false,
-                  },
-                ],
-              },
-            ],
-          ],
-        },
-        loader: false,
-        name: '[path][name].[ext]',
-      }),
+      // new ImageminPlugin({
+      //   bail: false,
+      //   cache: true,
+      //   imageminOptions: {
+      //     plugins: [
+      //       ['gifsicle', { interlaced: true }],
+      //       ['jpegtran', { progressive: true }],
+      //       ['optipng', { optimizationLevel: 5 }],
+      //       [
+      //         'svgo',
+      //         {
+      //           plugins: [
+      //             {
+      //               removeViewBox: false,
+      //             },
+      //           ],
+      //         },
+      //       ],
+      //     ],
+      //   },
+      //   loader: false,
+      //   name: '[path][name].[ext]',
+      // }),
       // new ImageminPlugin({
       //   pngquant: ({quality: [0.5, 0.5]}),
       //   plugins: [imageminMozjpeg({quality: 50})]
