@@ -17,3 +17,7 @@ NPM_TOKEN=4ba7233d-ffb5-420d-8ca9-1e4bc673744f
 
 https://www.pluralsight.com/guides/react-router-typescript
 https://tylermcginnis.com/react-router-protected-routes-authentication/
+https://www.yiiframework.com/doc/blog/1.1/en/start.design
+https://github.com/prisma/database-schema-examples/blob/master/postgres/basic-blog/schema.sql
+
+

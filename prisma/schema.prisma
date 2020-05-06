@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model tbl_comment {
+  author      String
+  content     String
+  create_time Int?
+  email       String
+  id          Int      @default(dbgenerated()) @id
+  post_id     Int
+  status      Int
+  url         String?
+  tbl_post    tbl_post @relation(fields: [post_id], references: [id])
+}
+
+model tbl_lookup {
+  code     Int
+  id       Int    @default(dbgenerated()) @id
+  name     String
+  position Int
+  type     String
+}
+
+model tbl_post {
+  author_id   Int
+  content     String
+  create_time Int?
+  id          Int           @default(dbgenerated()) @id
+  status      Int
+  tags        String?
+  title       String
+  update_time Int?
+  viewcount   Int?
+  tbl_user    tbl_user      @relation(fields: [author_id], references: [id])
+  tbl_comment tbl_comment[]
+}
+
+model tbl_role {
+  id        Int        @default(dbgenerated()) @id
+  name      String
+  privilege Int?       @default(1)
+  tbl_user  tbl_user[]
+}
+
+model tbl_tag {
+  frequency Int?   @default(1)
+  id        Int    @default(dbgenerated()) @id
+  name      String
+}
+
+model tbl_user {
+  avatar   String?
+  email    String
+  id       Int        @default(dbgenerated()) @id
+  password String
+  profile  String?
+  role_id  Int?
+  username String
+  tbl_role tbl_role?  @relation(fields: [role_id], references: [id])
+  tbl_post tbl_post[]
+}

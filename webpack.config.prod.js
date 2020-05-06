@@ -3,14 +3,14 @@
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const dotenv = require('dotenv');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const ImageminPlugin = require('imagemin-webpack'); // 手动压缩文件， 减少打包时间
+// const ImageminPlugin = require('imagemin-webpack'); // 手动压缩文件， 减少打包时间，也为了保证image的质量
 // lossless
 // const imageminJpegtran = require('imagemin-jpegtran');
 // const imageminOptipng = require('imagemin-optipng');
 // lossy
 // const imageminMozjpeg = require('imagemin-mozjpeg');
 // const ImageminPlugin = require('imagemin-webpack-plugin').default;
-
+//  webpack-libs-optimizations
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
