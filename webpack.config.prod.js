@@ -18,6 +18,7 @@ const path = require('path');
 const webpack = require('webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
+const postcssNormalize = require('postcss-normalize');
 const { getEntryJsHtmlPrj } = require('./tools/helpers');
 
 const [entryJsPath, htmlTemplatePath] = getEntryJsHtmlPrj();
@@ -111,6 +112,7 @@ module.exports = {
             options: {
               ident: 'postcss',
               plugins: () => [
+                postcssNormalize(/* pluginOptions */),
                 require('postcss-flexbugs-fixes'),
                 require('postcss-preset-env')({
                   autoprefixer: {

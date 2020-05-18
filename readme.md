@@ -21,3 +21,5 @@ https://www.yiiframework.com/doc/blog/1.1/en/start.design
 https://github.com/prisma/database-schema-examples/blob/master/postgres/basic-blog/schema.sql
 
 
+browserslist主要是提供给autoprefixer，babel-preset-env以及stylelint等浏览器特性相关的lib要支持的配置。这些lib会根据配置自动的做一些验证或者prefix等
+

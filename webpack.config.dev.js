@@ -5,6 +5,7 @@ const webpack = require('webpack');
 const dotenv = require('dotenv');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 // thread-loader for expensive operations!
+const postcssNormalize = require('postcss-normalize');
 const { getEntryJsHtmlPrj } = require('./tools/helpers');
 
 const [entryJsPath, htmlTemplatePath] = getEntryJsHtmlPrj();
@@ -29,8 +30,9 @@ const alias = [
   '@@Types',
   '@Utils',
 ].reduce((obj, key) => {
-  obj[key] = path.join(currentDirName, key.substring(1).toLowerCase());
-  return obj;
+  const target = { ...obj };
+  target[key] = path.join(currentDirName, key.substring(1).toLowerCase());
+  return target;
 }, {});
 
 module.exports = {
@@ -42,8 +44,8 @@ module.exports = {
     path: path.resolve(__dirname, './'),
     publicPath: '/',
     pathinfo: true,
-    filename: '[name].js',
-    chunkFilename: '[id].[name].js',
+    chunkFilename: 'static/js/[name].[chunkhash:8].js',
+    filename: 'static/[name].[chunkhash:8].js',
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json', '.png', '.jpg', 'jpeg'],
@@ -91,6 +93,7 @@ module.exports = {
             options: {
               ident: 'postcss',
               plugins: () => [
+                postcssNormalize(/* pluginOptions */),
                 require('postcss-flexbugs-fixes'),
                 require('postcss-preset-env')({
                   autoprefixer: {
@@ -133,13 +136,13 @@ module.exports = {
     port: 3000,
     proxy: {
       '/rest': {
-        target: 'http://jyzt-test.verymro.com:8080',
+        target: 'http://192.168.0.66:8080',
         // target: 'http://localhost:3000',
         headers: {
         },
       },
       '/nc': {
-        target: 'http://jyzt-test.verymro.com:8080',
+        target: 'http://192.168.0.66:8080',
         // target: 'http://localhost:3000',
         headers: {
         },
@@ -149,7 +152,7 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development'),
-      'process.env.PRJ_NAME': JSON.stringify(envConfig.PRj_NAME),
+      'process.env.PRJ_NAME': JSON.stringify(envConfig.PRJ_NAME),
       'process.env.ENTRY_MAIN_FUNC': JSON.stringify(envConfig.ENTRY_MAIN_FUNC),
     }),
     new ForkTsCheckerWebpackPlugin({
@@ -173,20 +176,34 @@ module.exports = {
       title: 'developing',
       inject: true,
     }),
-    new webpack.NamedModulesPlugin(),
+    // new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
   ],
   optimization: {
     removeAvailableModules: false,
     removeEmptyChunks: false,
-    splitChunks: false,
+    moduleIds: 'named',
+    chunkIds: 'named',
+    splitChunks: {
+      cacheGroups: {
+        defaultVendors: {
+          priority: -10,
+          test: /[\\/]node_modules[\\/]/,
+        },
+      },
+
+      chunks: 'all',
+      minChunks: 1,
+      minSize: 30000,
+      name: false,
+    },
   },
-  node: {
-    dgram: 'empty',
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty',
-    child_process: 'empty',
-  },
+  // node: {
+  //   dgram: 'empty',
+  //   fs: 'empty',
+  //   net: 'empty',
+  //   tls: 'empty',
+  //   child_process: 'empty',
+  // },
   performance: false,
 };
